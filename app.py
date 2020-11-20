@@ -9,11 +9,9 @@ from flask import Flask, request, render_template
 import glob
 import pandas as pd
 import json
-#from apps.manualpred import predict1, predict2, predict3, predict4, predict5, predict6,predict7, predict8, predict9, predict10, predict11, predict12
-
+from apps.manualpred import predict1, predict2, predict3, predict4, predict5, predict6,predict7, predict8, predict9, predict10, predict11, predict12
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 app = Flask(__name__, template_folder='template')
-
 
 def load_model():
 	# load the pre-trained Keras model
@@ -31,9 +29,10 @@ def getfile(request):
 	# Save the file to uploads folder
 	basepath = os.path.dirname(__file__)
 	file_path = os.path.join(
-		basepath, 'Uploads', secure_filename(f.filename))
+		basepath, 'static','uploads', secure_filename(f.filename))
 	f.save(file_path)
 	return file_path
+
 
 
 def prepare_model(image_path, model):
@@ -75,7 +74,7 @@ def DataResult1():
         return result
 
 def ImgResult():
-    list_of_files = glob.glob('./uploads/*') # * means all if need specific format then *.csv
+    list_of_files = glob.glob('./static/uploads/*') # * means all if need specific format then *.csv
     latest_file = max(list_of_files, key=os.path.getctime)
     print(latest_file)
     return latest_file
