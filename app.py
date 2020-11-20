@@ -9,7 +9,7 @@ from flask import Flask, request, render_template
 import glob
 import pandas as pd
 import json
-from apps.manualpred import predict1, predict2, predict3, predict4, predict5, predict6,predict7, predict8, predict9, predict10, predict11, predict12
+#from apps.manualpred import predict1, predict2, predict3, predict4, predict5, predict6,predict7, predict8, predict9, predict10, predict11, predict12
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 app = Flask(__name__, template_folder='template')
@@ -123,105 +123,7 @@ def create_plot():
     print(dfs)
     return jsons
 
-@app.route('/plotmanual')
-def create_plot2():
-    img = ''
-    preds = prepare_model(img, model)
 
-    pclass = decode_predictions(preds, top=4)
-    #test prediction
-    
-
-    # plot prediction
-    a_one = pclass[0][0][1]
-    a_two = pclass[0][1][1]
-    a_three = pclass[0][2][1]
-    a_four = pclass[0][3][1]
-    one = pclass[0][0][2]
-    two = pclass[0][1][2]
-    three = pclass[0][2][2]
-    four = pclass[0][3][2]
-    # print(a_one, a_two, a_three, a_four)
-    animals = [a_one, a_two, a_three, a_four]
-    probs = [one, two, three, four]
-    dfs = pd.DataFrame({'Breed': animals,'Percentage': probs})
-    jsons = dfs.to_json(orient="records")
-    jsons = json.loads(jsons)
-    jsons = json.dumps(jsons, indent=4)
-    print(dfs)
-    return jsons
-
-@app.route('/manualpreds1', methods=['POST'])
-def manualpred1():
-    pred = predict1()
-    print(pred)
-    return pred		
-
-@app.route('/manualpreds2', methods=['POST'])
-def manualpred2():
-    pred = predict2()
-    print(pred)
-    return pred
-
-@app.route('/manualpreds3', methods=['POST'])
-def manualpred3():
-    pred = predict3()
-    print(pred)
-    return pred	
-
-@app.route('/manualpreds4', methods=['POST'])
-def manualpred4():
-    pred = predict4()
-    print(pred)
-    return pred
-
-@app.route('/manualpreds5', methods=['POST'])
-def manualpred5():
-    pred = predict5()
-    print(pred)
-    return pred
-
-@app.route('/manualpreds6', methods=['POST'])
-def manualpred6():
-    pred = predict6()
-    print(pred)
-    return pred
-
-@app.route('/manualpreds7', methods=['POST'])
-def manualpred7():
-    pred = predict7()
-    print(pred)
-    return pred
-
-@app.route('/manualpreds8', methods=['POST'])
-def manualpred8():
-    pred = predict8()
-    print(pred)
-    return pred
-
-@app.route('/manualpreds9', methods=['POST'])
-def manualpred9():
-    pred = predict9()
-    print(pred)
-    return pred
-
-@app.route('/manualpreds10', methods=['POST'])
-def manualpred():
-    pred = predict10()
-    print(pred)
-    return pred
-
-@app.route('/manualpreds11', methods=['POST'])
-def manualpred11():
-    pred = predict11()
-    print(pred)
-    return pred
-
-@app.route('/manualpreds12', methods=['POST'])
-def manualpred12():
-    pred = predict12()
-    print(pred)
-    return pred
 
 @app.route('/about')
 def aboutproject():
