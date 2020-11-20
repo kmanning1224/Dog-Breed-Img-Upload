@@ -32,7 +32,15 @@ def prepare_model(image_path, model):
     # return the processed plot
     return predict
 
-
+def jsonload():
+    ts = 0
+    found = None
+    for file_name in glob.glob('./Dog-Breed-Img-Upload/uploads/*'):
+        fts = os.path.getmtime(file_name)
+        if fts > ts:
+            ts = fts
+            found = file_name
+            return found 
 
 def predict1():
     """Use Xception to label image"""
